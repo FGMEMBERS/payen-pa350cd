@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- Je n'ai trouve aucune information spécifique au Payen 100.
+     Ce FDM est donc un assemblage de diverses sources et divers 
+     Payen proche du P 100 Pa 22 Flechair, Pa 101 etc...
+-->
+<airplane mass="2000">
+  
+  <!-- Approach configuration -->
+  <approach speed="40" aoa="2">
+    <control-setting axis="/controls/engines/engine[0]/throttle" value="0.3"/>
+    <control-setting axis="/controls/engines/engine[0]/mixture" value="0.55"/>
+    <control-setting axis="/controls/engines/engine[0]/boost" value="0"/>
+    <control-setting axis="/controls/gear/gear-down" value="1"/>
+  </approach>
+  
+  <!-- Cruise configuration -->
+  <cruise speed="230" alt="10000">
+    <control-setting axis="/controls/engines/engine[0]/throttle" value="0.7"/>
+    <control-setting axis="/controls/engines/engine[0]/mixture" value="0.75"/>
+    <control-setting axis="/controls/engines/engine[0]/boost" value="1"/>
+    <control-setting axis="/controls/gear/gear-down" value="0"/>
+  </cruise>
+  
+  <!-- eyepoint -->
+  <cockpit x="-1.09" y="0" z="0.8"/>
+  
+  <fuselage ax="2.836" ay="0" az="0.267" bx="-3.270" by="0" bz="0" width="0.65" taper="0.3" midpoint="0.6"/>
+  
+  <wing x="-0.850" y="0.249" z="0.061"
+        chord="3.680"
+        length="2.7"
+        taper="0.05"
+        sweep="46"
+        camber="0.001">
+        <stall aoa="16" width="1" peak="1.2"/>
+        <flap0 start="0.05" end="1.0" lift="1.3" drag="1.1"/>
+    
+        <control-input axis="/controls/flight/aileron" control="FLAP0" split="true"/>
+        <control-input axis="/controls/flight/aileron-trim" control="FLAP0" split="true"/>
+    
+        <control-output control="FLAP0" side="left" prop="surface-positions/left-aileron-pos-norm"/>
+        <control-output control="FLAP0" side="right" prop="surface-positions/right-aileron-pos-norm"/>
+  </wing>
+  
+  <hstab x="1.257" y="0.22" z="0.04"
+         chord="0.965"
+         length="1.6"
+         sweep="-1.5"
+         taper="0.35">
+         <stall aoa="16" width="1" peak="1.5"/>
+         <flap0 start="0.22" end="0.77" lift="1.5" drag="1.2"/>
+    
+         <control-input axis="/controls/flight/elevator" control="FLAP0" invert="true"/>
+         <control-input axis="/controls/flight/elevator-trim" control="FLAP0"/>
+    
+         <control-output control="FLAP0" prop="/surface-positions/elevator-pos-norm"/>
+  </hstab>
+  
+  <vstab x="-2.380" y="0" z="0"
+         chord="1.924"
+         length="1.3"
+         taper="0.45">
+         <stall aoa="14" width="1" peak="1.5"/>
+         <flap0 start="0" end="1" lift="1.3" drag="1.1"/>
+         <control-input axis="/controls/flight/rudder" square="true" control="FLAP0" invert="true"/>
+         <control-input axis="/controls/flight/rudder-trim" control="FLAP0" invert="true"/>
+    
+         <control-output control="FLAP0" prop="/surface-positions/rudder-pos-norm" min="1" max="-1"/>
+  </vstab>
+  
+  <propeller x="2.139" y="0" z="0.143"
+             mass="468" 
+             moment="3.5" 
+             radius="0.815"
+             cruise-power="300" 
+             cruise-speed="230"
+             cruise-rpm="2700" 
+             cruise-alt="10000"
+             contra="1">
+             <actionpt x="3.038" y="0" z="0.267"/>
+             <piston-engine eng-rpm="3200" 
+                            eng-power="380"
+                            displacement="560.6" 
+                            compression="5.25">
+                            <control-input control="THROTTLE" axis="/controls/engines/engine[0]/throttle"/>
+                            <control-input control="STARTER" axis="/controls/engines/engine[0]/starter"/>
+                            <control-input control="MAGNETOS" axis="/controls/engines/engine[0]/magnetos"/>
+                            <control-input control="MIXTURE" axis="/controls/engines/engine[0]/mixture"/>
+                            <control-input control="BOOST" axis="/controls/engines/engine[0]/boost"/>
+             </piston-engine>
+  </propeller>
+  
+  <gear x="0.997" y="0.000" z="-1.309"
+        compression="0.2"
+        spring="0.7"
+        damp="3.4"
+        dfric="0.6"
+        sfric ="0.70">
+        <control-input control="BRAKE" axis="/controls/gear/brake-parking" split="true"/>
+        <control-input control="STEER" axis="/controls/flight/rudder" src0="-1.0" src1="1.0" dst0="-0.1" dst1="0.1"/>
+        <control-input control="EXTEND" axis="/controls/gear/gear-down"/>
+    
+        <control-output control="EXTEND" prop="/gear/gear[0]/position-norm"/>
+    
+        <control-speed control="EXTEND" transition-time="5"/>
+  </gear>
+  
+  <gear x="-2.91478" y="1.33575" z="-0.23592"
+        compression="0.1"
+        castering="1" 
+        dfric="0.3"
+        sfric ="0.40">
+        <control-input control="BRAKE" axis="/controls/gear/brake-left"/>
+        <control-input control="BRAKE" axis="/controls/gear/brake-parking" split="true"/>
+        <control-input control="EXTEND" axis="/controls/gear/gear-down"/>
+    
+        <control-output control="EXTEND" prop="/gear/gear[1]/position-norm"/>
+    
+        <control-speed control="EXTEND" transition-time="5"/>
+  </gear>
+  
+  <gear x="-2.91478" y="-1.33575" z="-0.23592"
+        compression="0.1"
+        castering="1" 
+        dfric="0.3"
+        sfric ="0.40">
+        <control-input control="BRAKE" axis="/controls/gear/brake-right"/>
+        <control-input control="BRAKE" axis="/controls/gear/brake-parking" split="true"/>
+        <control-input control="EXTEND" axis="/controls/gear/gear-down"/>
+    
+        <control-output control="EXTEND" prop="/gear/gear[2]/position-norm"/>
+    
+        <control-speed control="EXTEND" transition-time="5"/>
+  </gear>
+  
+  <tank x="-1.5" y=" 1.15" z="0.06" capacity="482.5"/> 
+  <tank x="-1.5" y="-1.15" z="0.06" capacity="482.5"/> 
+  
+  <!-- pilot -->
+  <ballast x="3" y="0" z="-0.8" mass="250"/>
+  
+</airplane>
